@@ -16,13 +16,13 @@ Your function should return length = 2, and A is now [1,2].
 using namespace std;
 int removeDuplicates(int Ary[], int n) {
     if (n < 2) return n;
-    int i = 1, j = 1;
+    int i = 1, newLength = 1;
     while (i < n) {
-        if (Ary[i-1] != Ary[i]) Ary[j++] = Ary[i];
+        if (Ary[i-1] != Ary[i]) Ary[newLength++] = Ary[i];
         i++;
     }
 
-    return j;
+    return newLength;
 }
 
 int main()
