@@ -88,7 +88,7 @@ void Zero(int **a, int m, int n)
     memset(col, false, sizeof(col));
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++) {
-            if(a[i][j] == 00) {
+            if(a[i][j] == 0) {
                 row[i] = true;
                 col[j] = true;
             }
