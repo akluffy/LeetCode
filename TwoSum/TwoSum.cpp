@@ -29,7 +29,7 @@ vector<int> twoSum(vector<int> &numbers, int target) {
         int desiredNum = target - numbers[i];
         // check if desiredNum is in the hashmap. In particular, the desiredNum cannot be the number[i] itself. For example, the target is 10, numbers[i(say i = 3)] = 5, the desiredNum is 5 that is the same as number[3], so if i(3) equals hashmap[5], it doesn't account.
         if(hashmap.count(desiredNum) && i != hashmap[desiredNum]) {
-            index[0] = hashmap[numbers[i]] + 1;
+            index[0] = i + 1;
             index[1] = hashmap[desiredNum] + 1;
             break;
         }
