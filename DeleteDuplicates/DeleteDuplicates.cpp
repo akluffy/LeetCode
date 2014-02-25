@@ -58,43 +58,41 @@ ListNode *pop(ListNode *head) {
 
 // deleteDuplicates() Function by recursion.
 
-static void recur(ListNode *prev, ListNode *cur);
-
 ListNode *deleteDuplicates(ListNode *head) {
-        if(head == NULL) return head;
-        ListNode *result = new ListNode(head->val + 1);
-        result->next = head;
-        recur(result, head);
+    if(head == NULL || head->next == NULL) return head;
 
-        return result->next;
-}
-
-void recur(ListNode *prev, ListNode *cur) {
-        if(cur == NULL) return;
-
-        if(prev->val == cur->val) {
-            prev->next = cur->next;
-            delete cur;
-            recur(prev, prev->next);
+    ListNode *dummy = head->next;
+    if(head->val == dummy->val) {
+        while(dummy && head->val == dummy->val) {
+            ListNode *p = dummy;
+            dummy = dummy->next;
+            delete p;
         }
-        else {
-            recur(prev->next, cur->next);
-        }
-
+        head->next = deleteDuplicates(dummy);
+        return head;
+    } else {
+        head->next = deleteDuplicates(dummy);
+        return head;
+    }
 }
 
 // traverse version //
 
 ListNode *deleteDuplicates2(ListNode *head) {
     if(head == NULL) return head;
+    ListNode *prev = head, *cur = head->next;
 
-    for(ListNode *prev = head, *cur = head->next; cur != NULL; cur = cur->next) {
+    while(cur != NULL) {
         if(prev->val == cur->val) {
             prev->next = cur->next;
-            delete cur;
+
+            ListNode *p = cur;
+            cur = cur->next;
+            delete p;
         }
         else {
             prev = cur;
+            cur = cur->next;
         }
     }
 
