@@ -1,0 +1,60 @@
+/**
+
+/* ***********Copyright (c) 2013 Neko. All rights reserved. *************/
+/********************* Author: ylide@tianya.cn ********************/
+感谢NEKO提供的此解法.
+
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+
+ */
+ #define rnode RandomListNode
+class Solution {
+public:
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        vector<rnode *> save;
+        rnode *p = head;
+        rnode *copyList = NULL;
+        if (!head) return NULL;
+
+        // 先把原来的list复制到一个vector里面
+        while (p) {
+            save.push_back(p);
+            p = p->next;
+        }
+
+        // 新建一个表头通过copyList来指向
+        copyList = new rnode(head->label);
+        // 原list的第一个node指向copylist的第一个node
+        save[0]->next = p = copyList;
+        // 新建剩下的node，并且把原list的每个node都指向对应的copylist的node（通过next来指向，random还是指针还是不变）
+        for (int i = 1;i < save.size();++i) {
+            p->next = new rnode(save[i]->label);
+            p = p->next;
+            save[i]->next = p;
+        }
+
+        // 接下来复制random指针
+        p = copyList;
+        for (int i = 0;i < save.size();++i, p = p->next) {
+            if (save[i]->random) {
+                p->random = save[i]->random->next;
+            }
+        }
+
+        // 断开原list与copyList，并且重新将原来list的next指向原list的node
+        for (int i = 0;i < save.size() - 1;++i) {
+            save[i]->next = save[i + 1];
+        }
+
+        // 原来list最后一个node指向NULL
+        save.back()->next = NULL;
+
+        return copyList;
+    }
+};
