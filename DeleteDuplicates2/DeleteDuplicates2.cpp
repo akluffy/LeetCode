@@ -61,12 +61,21 @@ ListNode *pop(ListNode *head) {
 static void recur(ListNode *prev, ListNode *cur);
 
 ListNode *deleteDuplicates(ListNode *head) {
-        if(head == NULL) return head;
-        ListNode *result = new ListNode(head->val + 1);
-        result->next = head;
-        recur(result, head);
+        if(head == NULL || head->next == NULL) return head;
 
-        return result->next;
+        ListNode *dummy = head->next;
+        if(head->val == dummy->val) {
+            while(dummy && head->val == dummy->val) {
+                ListNode *p = dummy;
+                dummy = dummy->next;
+                delete p;
+            }
+            delete head;
+            return deleteDuplicates(dummy);
+        } else {
+            head->next = deleteDuplicates(head->next);
+            return head;
+        }
 }
 
 void recur(ListNode *prev, ListNode *cur) {
@@ -153,7 +162,7 @@ int main()
    // ListNode *q = init(b, m);
 
 
-    ListNode *result = deleteDuplicates2(p);
+    ListNode *result = deleteDuplicates(p);
     cout << "=========================" << endl;
 
     if(result) print(result);
