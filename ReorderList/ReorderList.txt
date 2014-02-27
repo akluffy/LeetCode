@@ -1,0 +1,73 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ 
+/************ Thanks to NEKO for providing the solution *************/
+
+
+// 从中间断开链表，如果是奇数，前面list比后面list多一个node
+ListNode *unlink(ListNode *head)
+{
+    ListNode *f = head, *b = head, *prev;
+    while (f && f->next) {
+        prev = b;
+        f = f->next->next;
+        b = b->next;
+    }
+    if (f) {
+        prev = b;
+        b = b->next;
+    }
+    prev->next = NULL;
+    return b;
+}
+
+// 反转链表的方向
+ListNode *revers(ListNode *head)
+{
+    ListNode *prev, *next, *curr;
+    curr = head;
+    prev = NULL;
+    while (curr) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+// 将两个链表合并成一个 
+ListNode *merge(ListNode *f, ListNode *b)
+{
+    ListNode *fnext, *bnext;
+    ListNode *prev = NULL;
+    while (f && b) {
+        fnext = f->next;
+        bnext = b->next;
+        if (prev) prev->next = f;
+        f->next = b;
+        b->next = NULL;
+        prev = b;
+        f = fnext;
+        b = bnext;
+    }
+    if (f) prev->next = f;
+    return f;
+}
+class Solution {
+public:
+    void reorderList(ListNode *head) {
+        ListNode *f, *b;
+        if (!head || !head->next) return;
+        f = head;
+        b = unlink(head);
+        b = revers(b);
+        f = merge(f, b);
+    }
+};
