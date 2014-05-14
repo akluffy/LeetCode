@@ -1,0 +1,71 @@
+/*******************************************
+
+Given a binary tree, return the preorder traversal of its nodes' values.
+
+For example:
+Given binary tree {1,#,2,3},
+   1
+    \
+     2
+    /
+   3
+return [1,2,3].
+
+Note: Recursive solution is trivial, could you do it iteratively?
+
+**********************************************/
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stdio.h>
+#include <algorithm>
+#include <limits>
+#include <stack>
+
+using namespace std;
+
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode *root) {
+        vector<int> result;
+        stack<TreeNode *> s;
+        TreeNode *prev = NULL, *curr;
+        if(root) s.push(root);
+        while(!s.empty()) {
+            curr = s.top();
+            if(prev && prev == curr->left) {
+                if(curr->right) s.push(curr->right);
+                else s.pop();
+            } else if(prev && prev == curr->right) {
+                s.pop();
+            } else {
+                result.push_back(curr->val);
+                if(curr->left) s.push(curr->left);
+                else if(curr->right) s.push(curr->right);
+                else s.pop();
+            }
+            prev = curr;
+        }
+
+    return result;
+    }
+};
+
+int main()
+{
+
+
+    return 0;
+}
+
