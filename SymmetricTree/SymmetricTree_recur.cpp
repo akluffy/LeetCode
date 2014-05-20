@@ -43,9 +43,13 @@ using namespace std;
 class Solution {
 public:
     bool isSymmetric(TreeNode *root) {
-        if(!root->left && !root->right) return true;
-        else if(root->left && root->right) return (isSymmetric(root->left) && isSymmetric(root->right));
-        else return false;
+        if(!root) return true;
+        return isSymmetric(root->left, root->right);
+    }
+    bool isSymmetric(TreeNode *rootA, TreeNode *rootB) {
+        if(!rootA && !rootB) return true;
+        if(!rootA || !rootB) return false;
+        return rootA->val == rootB->val && isSymmetric(rootA->left, rootB->right) && isSymmetric(rootB->left, rootA->right);
     }
 };
 
