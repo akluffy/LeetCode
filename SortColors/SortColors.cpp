@@ -33,7 +33,7 @@ void sortColors(int A[], int n) {
         if(A[index] == 2) {
             std::swap(*p3, A[index]);
             p3--;
-            n--;
+            n--; // 注意，循环的上限要调整,否则会把后面所有的2，全部换到前面
             continue;
         }
         else if(A[index] == 0) {
