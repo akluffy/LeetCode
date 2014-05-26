@@ -29,7 +29,7 @@ void generateBorder(vector<vector<int> > &matrix,
                     int colStart, int colLength,
                     int val)
 {
-    if(rowLength <= 0 && colLength <= 0) return;
+    if(rowLength <= 0 || colLength <= 0) return;
 
     // 当行长度或者列长长度为1的时候直接输出最后的这行（列）然后返回
     // 在这题里，其实只需要一个判断就行了，因为长跟宽是相同的，所以rowLength必须等于colLength， 但是这个函数适用于M*N矩阵，不仅仅限于此题
