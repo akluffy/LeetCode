@@ -1,0 +1,17 @@
+void InOrder(TreeNode *node, vector<TreeNode *> &list, vector<int> &vals) {
+    if(node == NULL) return;
+    InOrder(node->left, list, vals);
+    list.push_back(node);
+    vals.push_back(node->val);
+    InOrder(node->right, list, vals);
+}
+
+void recoverTree(TreeNode *root) {
+    vector<TreeNode *> list;
+    vector<int> vals;
+    InOrder(root, list, vals);
+    std::sort(vals.begin(), vals.end());
+    for(int i = 0; i < list.size(); i++) {
+        list[i]->val = vals[i];
+    }
+}
