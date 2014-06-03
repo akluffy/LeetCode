@@ -16,3 +16,12 @@
         }
     }
     
+    vector<vector<int> > combinationSum2(vector<int> &candidates, int target) {
+        std::sort(candidates.begin(), candidates.end());
+        int sum = 0;
+        vector<int> sub;
+        vector<vector<int> > result;
+        helper(candidates, target, 0, sum, sub, result);
+        return result;
+    }
+
