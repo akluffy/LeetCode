@@ -1,0 +1,18 @@
+
+    void helper(vector<int> &candidates, int target, int level, int &sum, vector<int> &sub, vector<vector<int> > &result) {
+        if(sum == target) {
+            result.push_back(sub);
+            return;
+        }
+        if(sum > target) return;
+        
+        for(int i = level; i < candidates.size(); i++) {
+            sum += candidates[i];
+            sub.push_back(candidates[i]);
+            helper(candidates, target, i + 1, sum, sub, result);
+            sum -= candidates[i];
+            sub.pop_back();
+            while(i < candidates.size() - 1 && candidates[i] == candidates[i + 1]) i++;
+        }
+    }
+    
