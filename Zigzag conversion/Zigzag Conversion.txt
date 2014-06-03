@@ -1,0 +1,18 @@
+string convert(string s, int nRows) {
+        if(nRows <= 1) return s;
+        string result;
+        int zigSize = 2 * nRows - 2;
+        for(int i = 0; i < nRows; i++) {
+            for(int base = i;; base += zigSize) {
+                if(base >= s.size()) break;
+                result.append(1, s[base]);
+                if(i > 0 && i < nRows - 1) {
+                    int middle = base + zigSize - 2 * i;
+                    if(middle < s.size()) result.append(1, s[middle]);
+                }
+            }
+        }
+        
+        return result;
+    }
+
