@@ -66,7 +66,7 @@ int maximalRectangle(vector<vector<char> > &matrix) {
  改造matrix举例：
   0 1 0 1 0 1               0 1 0 1 0 1
   0 0 0 1 1 1               0 0 0 2 1 2
-  0 0 1 1 1 1  →→→→→→→→→→   0 0 1 3 2 3
+  0 0 1 1 1 1  →→→→→→→→→→   0 0 1 3 2 3      // 注意，这里的数字不是int类型，而是表示char的ASCII码。实际显示的画面是char而不是ascii的数字
   0 0 0 1 1 1               0 0 0 4 3 4
   0 1 1 0 0 0               0 1 1 0 0 0
 
