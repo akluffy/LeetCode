@@ -10,8 +10,9 @@ int largestRectangleArea(vectorint &height) {
         if(s.empty()  height[s.top()]  height[i])
             s.push(i++);
         else {
-            top = s.top();
-            s.pop();
+            top = s.top();      // 此方法的精髓在于 每次从stack里pop的元素（即top指向的元素），
+                                // 都比在stack中它下面那个元素（假如我们叫它为prev）大                  
+            s.pop();            // 而且它又比现在的i指向的元素也要大。而比在prev到i之间的元素都小，所以用它乘以prev到i的距离就是这段面积
             currArea = height[top]  (s.empty()  i  i - s.top() - 1);
             if(maxArea  currArea) maxArea = currArea;
         }
