@@ -1,27 +1,27 @@
-int largestRectangleArea(vectorint &height) {
-    if(height.size() == 0) return 0;
-    stackint s;
-    int maxArea = 0;
-    int top;
-    int currArea;
-    
-    int i = 0;
-    while(i  height.size()) {
-        if(s.empty()  height[s.top()]  height[i])
-            s.push(i++);
-        else {
+ int largestRectangleArea(vector<int> &height) {
+        if(height.size() == 0) return 0;
+        stack<int> s;
+        int maxArea = 0;
+        int top;
+        int currArea;
+
+        int i = 0;
+        while(i < height.size()) {
+            if(s.empty() || height[s.top()] < height[i])
+                s.push(i++);
+            else {
+                top = s.top();
+                s.pop();
+                currArea = height[top] * (s.empty() ? i : i - s.top() - 1);
+                if(maxArea < currArea) maxArea = currArea;
+            }
+        }
+        while(!s.empty()) {
             top = s.top();
             s.pop();
-            currArea = height[top]  (s.empty()  i  i - s.top() - 1);
-            if(maxArea  currArea) maxArea = currArea;
+            currArea = height[top] * (s.empty() ? i : i - s.top() - 1);
+            if(maxArea < currArea) maxArea = currArea;
         }
+
+        return maxArea;
     }
-    while(!s.empty()) {
-        top = s.top();
-        s.pop();
-        currArea = height[top]  (s.empty()  i  i - s.top() - 1);
-        if(maxArea  currArea) maxArea = currArea;            
-    }
-    
-    return maxArea;
-}
