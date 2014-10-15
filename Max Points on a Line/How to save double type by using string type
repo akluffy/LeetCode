@@ -1,0 +1,37 @@
+private int gcd(int x, int y) {
+        if (x < y) {
+            int w = x;
+            x = y;
+            y = w;
+        }
+        
+        while (x % y != 0) {
+            int t = x % y;
+            x = y;
+            y = t;
+        }
+        
+        return y;
+    }
+    
+    private String getSlope(Point p1, Point p2) {
+        int y = p2.y - p1.y;
+        int x = p2.x - p1.x;
+        if (x == 0 && y == 0) return "?";
+        else if (x == 0) return "v";
+        else if (y == 0) return "h";
+        
+        boolean negative = (x > 0 && y < 0) || (x < 0 && y > 0);
+        if (negative) {
+            if (x < 0) x = -x;
+            else y = -y;
+        }
+        else if (x < 0 && y < 0) {
+            x = -x;
+            y = -y;
+        }
+        
+        int g = gcd(x, y);
+        x /= g; y /= g;
+        return (negative ? "-" : "") + x + "/" + y;
+    }
